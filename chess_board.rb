@@ -1,5 +1,9 @@
 # Something about the class
+require_relative './chess_piece'
+
 class ChessBoard
+  attr_reader :board
+
   def initialize
     row = Array.new(8)
     @board = Array.new(8, row)
@@ -29,8 +33,8 @@ class ChessBoard
     %i[white black].map do |color|
       n = color == :white ? 0 : 7
       @board[n][0] = @board[n][7] = ChessPiece.new(:rook, color)
-      @board[n][1] = @board[n][6] = ChessPiece.new(:bishop, color)
-      @board[n][2] = @board[n][5] = ChessPiece.new(:knight, color)
+      @board[n][1] = @board[n][6] = ChessPiece.new(:knight, color)
+      @board[n][2] = @board[n][5] = ChessPiece.new(:bishop, color)
       @board[n][3] = ChessPiece.new(:queen, color)
       @board[n][4] = ChessPiece.new(:king, color)
     end
