@@ -24,8 +24,28 @@ class ChessBoard
   end
 
   def place_pieces
-    @board[1] = @board[1].map { ChessPiece.new(:pawn, 'white') }
-    @board[6] = @board[6].map { ChessPiece.new(:pawn, 'black') }
+    @board[1] = @board[1].map { ChessPiece.new(:pawn, :white) }
+    @board[6] = @board[6].map { ChessPiece.new(:pawn, :black) }
+    %i[white black].map do |color|
+      n = color == :white ? 0 : 7
+      @board[n][0] = @board[n][7] = ChessPiece.new(:rook, color)
+      @board[n][1] = @board[n][6] = ChessPiece.new(:bishop, color)
+      @board[n][2] = @board[n][5] = ChessPiece.new(:knight, color)
+      @board[n][3] = ChessPiece.new(:queen, color)
+      @board[n][4] = ChessPiece.new(:king, color)
+    end
+  end
 
+  def remove_piece(row, column)
+    @board[row][column] = nil
+  end
+
+  def to_s
+    @board.map do |board_row|
+      puts "\n"
+      board_row.map do |tile|
+        tile.nil? ? puts(' ') : puts(tile)
+      end
+    end
   end
 end
